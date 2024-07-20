@@ -16,7 +16,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var twentyPctButton: UIButton!
     @IBOutlet weak var splitNumberLabel: UILabel!
     @IBOutlet weak var calculateButton: UIButton!
-    
+    var tip = 0.1
     
     @IBAction func tipChanged(_ sender: UIButton) {
         //Deselect all tip buttons via IBOutlets
@@ -25,31 +25,6 @@ class CalculatorViewController: UIViewController {
         twentyPctButton.isSelected = false
         
         sender.isSelected = true
-    }
-    
-    @IBAction func stepperValueChanged(_ sender: UIStepper) {
-        let displayValue = String(sender.value).dropLast(2)
-        splitNumberLabel.text = String(displayValue)
-    }
-    
-    
-    @IBAction func calculatePressed(_ sender: Any) {
-        if zeroPctButton.isSelected{
-            printingData(zeroPctButton)
-        }
-        else if tenPctButton.isSelected{
-            printingData(tenPctButton)
-        }
-        else if twentyPctButton.isSelected{
-            printingData(twentyPctButton)
-        }
-        
-        print((splitNumberLabel.text ?? "0.0")!)
-        print((billTextFilled.text ?? "0.0")!)
-    }
-    
-    func printingData(_ sender : UIButton){
-        var tip = 0.1
         //Get the current title of the button that was pressed.
         let buttonTitle = sender.currentTitle!
                 
@@ -61,8 +36,21 @@ class CalculatorViewController: UIViewController {
                 
         //Divide the percent expressed out of 100 into a decimal e.g. 10 becomes 0.1
         tip = buttonTitleAsANumber / 100
+    }
+    
+    @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        let displayValue = String(sender.value).dropLast(2)
+        splitNumberLabel.text = String(displayValue)
+    }
+    
+    
+    @IBAction func calculatePressed(_ sender: Any) {
+        let personsInSplit = (Double(splitNumberLabel.text ?? "0.0")!)
+        let billAmount = (Double(billTextFilled.text ?? "0.0")!)
+        // Calculation = bill + tipPercentage*bill) / totalNumberOfPersons
+        let totalSplit = (billAmount + (tip * billAmount)) / personsInSplit
         
-        print(tip)
+        print(Float(totalSplit))
     }
     
     override func viewDidLoad() {
