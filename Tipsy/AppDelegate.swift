@@ -1,11 +1,10 @@
 //
-//  AppDelegate.swift
+//  ResultViewController.swift
 //  Tipsy
 //
-//  Created by Angela Yu on 09/09/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
+//  Created by Asad Aftab on 7/20/24.
+//  Copyright © 2024 The App Brewery. All rights reserved.
 //
-
 import UIKit
 
 @UIApplicationMain
