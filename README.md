@@ -31,10 +31,10 @@ Throughout the development of this app, we gained experience in several key area
 ## Screenshots
 
 ### Main Screen
-![Main Screen](mainScreen.png)
+![Main Screen](/Tipsy/mainScreen.png)
 
 ### Result Screen
-![Result Screen](resultScreen.png)
+![Result Screen](/Tipsy/resultScreen.png)
 
 ## Project Structure
 
