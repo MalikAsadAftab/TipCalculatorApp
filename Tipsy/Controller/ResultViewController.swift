@@ -14,16 +14,22 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var settingLabel: UILabel!
     @IBOutlet weak var recalculateButton: UIButton!
     
+    var split = Double(0)
+    var result = Float(0)
+    var tip = Double(0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        recalculateButton.layer.cornerRadius = 25
+        recalculateButton.layer.cornerRadius = 10
+        totalLabel.text = String(result)
+        settingLabel.text = "Split between \(split) people, with \(tip)% tip."
     }
     
 
     @IBAction func recalculatePressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     /*
     // MARK: - Navigation

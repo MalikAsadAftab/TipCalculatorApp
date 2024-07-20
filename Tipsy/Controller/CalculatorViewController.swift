@@ -17,8 +17,12 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var splitNumberLabel: UILabel!
     @IBOutlet weak var calculateButton: UIButton!
     var tip = 0.1
+    var totalSplit = Double(0)
+    var personsInSplit = Double(0)
+    var billAmount = Double(0)
     
     @IBAction func tipChanged(_ sender: UIButton) {
+        billTextFilled.endEditing(true)
         //Deselect all tip buttons via IBOutlets
         zeroPctButton.isSelected = false
         tenPctButton.isSelected = false
@@ -45,19 +49,29 @@ class CalculatorViewController: UIViewController {
     
     
     @IBAction func calculatePressed(_ sender: Any) {
-        let personsInSplit = (Double(splitNumberLabel.text ?? "0.0")!)
-        let billAmount = (Double(billTextFilled.text ?? "0.0")!)
-        // Calculation = bill + tipPercentage*bill) / totalNumberOfPersons
-        let totalSplit = (billAmount + (tip * billAmount)) / personsInSplit
-        
+        if billTextFilled.text !=  "0.0" {
+            
+            personsInSplit = (Double(splitNumberLabel.text ?? "0.0") ?? 0.0)
+            billAmount = (Double(billTextFilled.text ?? "0.0") ?? 0.0)
+            
+            // Calculation = bill + tipPercentage*bill) / totalNumberOfPersons
+            totalSplit = (billAmount + (tip * billAmount)) / personsInSplit
+            
+        }
+        else {
+            totalSplit = 0.0
+        }
+        self.performSegue(withIdentifier: "goToResults", sender: self)
         print(Float(totalSplit))
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        calculateButton.layer.cornerRadius = 25
-        
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResults" {
+            let destinationVC = segue.destination as! ResultViewController
+                destinationVC.result = Float(totalSplit)
+                destinationVC.tip = Double(tip * 100)
+                destinationVC.split = personsInSplit
+        }
     }
 
 
